@@ -5,8 +5,8 @@ class Todo extends Component {
     super(props);
   }
   render() {
-    const { todo } = props;
-    return <div></div>;
+    const { todoTask } = this.props;
+    return <div>{todoTask}</div>;
   }
 }
 

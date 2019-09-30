@@ -9,20 +9,35 @@ class TodoForm extends Component {
         completed: false
       }
     };
+    this.initialForm = this.state.formData;
   }
 
   handleChange = e => {
     const { name, value } = e.target;
-    const { formData } = e.target;
+    const { formData } = this.state;
     this.setState({ formData: { ...formData, ...{ [name]: value } } });
+  };
+
+  handleClick = formData => {
+    // e.preventDefault();s
+    // const { formData } = this.state;
+    this.props.addTodo(formData);
+    this.setState({ formData: this.initialForm });
   };
 
   render() {
     const { task } = this.state.formData;
+    const { formData } = this.state;
     return (
-      <div>
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          this.handleClick(formData);
+        }}
+      >
         <input name="task" value={task} onChange={this.handleChange} />
-      </div>
+        <button type="submit">Add</button>
+      </form>
     );
   }
 }

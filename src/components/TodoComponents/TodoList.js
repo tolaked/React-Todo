@@ -1,12 +1,13 @@
 import React, { Component } from "react";
+import Todo from "./Todo";
 
-export class TodoList extends Component {
+class TodoList extends Component {
   render() {
-    const { todossss } = this.props;
+    const { todo } = this.props;
     return (
       <div>
-        {todossss.map(singleTodo => (
-          <h5>{singleTodo.task}</h5>
+        {todo.map(singleTodo => (
+          <Todo todoTask={singleTodo.task} />
         ))}
       </div>
     );

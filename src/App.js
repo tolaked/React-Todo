@@ -1,8 +1,10 @@
 import React from "react";
 import TodoList from "./components/TodoComponents/TodoList";
 import TodoForm from "./components/TodoComponents/TodoForm";
+import uuid from "uuid";
+import { networkInterfaces } from "os";
 
-const todo = [
+let todo = [
   {
     task: "Organize Garage",
     id: 1528817077286,
@@ -26,14 +28,21 @@ class App extends React.Component {
     };
   }
 
+  addTodo = todo => {
+    todo = { ...todo, ...{ id: uuid() } };
+    const newTodos = [...this.state.todo, todo];
+    todo = newTodos;
+
+    this.setState({ todo });
+  };
+
   render() {
     const { todo } = this.state;
-    console.log("this", todo);
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
-        <TodoForm />
-        <TodoList todossss={todo} />
+        <TodoForm addTodo={this.addTodo} todo={todo} />
+        <TodoList todo={todo} />
       </div>
     );
   }
