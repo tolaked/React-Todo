@@ -37,6 +37,9 @@ class TodoForm extends Component {
       >
         <input name="task" value={task} onChange={this.handleChange} />
         <button type="submit">Add</button>
+        <div>
+          <button onClick={this.props.clearTodo}>Clear</button>
+        </div>
       </form>
     );
   }
