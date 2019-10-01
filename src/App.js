@@ -23,7 +23,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      todo,
+      todo: [],
       searchText: ""
     };
   }
@@ -50,6 +50,24 @@ class App extends React.Component {
     });
   };
 
+  handleSearchChange = evt => {
+    const { name, value } = evt.target;
+
+    this.setState({
+      [name]: value
+    });
+  };
+
+  searchTasks = () => {
+    const { searchText, todo } = this.state;
+    const searchedTodo = todo.find(
+      el => el.task.toLowerCase() === searchText.toLowerCase()
+    );
+    this.setState({
+      todo: [searchedTodo]
+    });
+  };
+
   clearTodo = e => {
     e.preventDefault();
     this.setState({
@@ -58,12 +76,18 @@ class App extends React.Component {
   };
 
   render() {
-    const { todo } = this.state;
+    const { todo, searchText } = this.state;
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
         <TodoForm addTodo={this.addTodo} clearTodo={this.clearTodo} />
-        <TodoList todo={todo} toggleTodo={this.toggleTodo} />
+        <TodoList
+          todo={todo}
+          toggleTodo={this.toggleTodo}
+          handleSearchChange={this.handleSearchChange}
+          searchTasks={this.searchTasks}
+          searchText={searchText}
+        />
       </div>
     );
   }
