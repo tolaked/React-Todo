@@ -3,12 +3,18 @@ import Todo from "./Todo";
 
 class TodoList extends Component {
   render() {
-    const { todo } = this.props;
+    const { todo, toggleTodo } = this.props;
     return (
       <div>
-        {todo.map(singleTodo => (
-          <Todo todoTask={singleTodo.task} />
-        ))}
+        {todo.map(
+          singleTodo => (
+            <Todo
+              todoTask={singleTodo.task}
+              toggleTodo={() => toggleTodo(singleTodo, todo)}
+            />
+          ),
+          console.log(todo)
+        )}
       </div>
     );
   }

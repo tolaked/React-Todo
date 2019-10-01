@@ -2,7 +2,6 @@ import React from "react";
 import TodoList from "./components/TodoComponents/TodoList";
 import TodoForm from "./components/TodoComponents/TodoForm";
 import uuid from "uuid";
-import { networkInterfaces } from "os";
 
 let todo = [
   {
@@ -24,7 +23,8 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      todo
+      todo,
+      searchText: ""
     };
   }
 
@@ -34,6 +34,20 @@ class App extends React.Component {
     todo = newTodos;
 
     this.setState({ todo });
+  };
+
+  toggleTodo = (singleTodo, todo) => {
+    const copyOfTodo = { ...singleTodo };
+    const { completed, id } = copyOfTodo;
+
+    if (completed) copyOfTodo.completed = false;
+    else copyOfTodo.completed = true;
+
+    const neWfilteredArr = todo.filter(el => el.id !== id);
+
+    this.setState({
+      todo: neWfilteredArr.concat(copyOfTodo)
+    });
   };
 
   clearTodo = e => {
@@ -49,7 +63,7 @@ class App extends React.Component {
       <div>
         <h2>Welcome to your Todo App!</h2>
         <TodoForm addTodo={this.addTodo} clearTodo={this.clearTodo} />
-        <TodoList todo={todo} />
+        <TodoList todo={todo} toggleTodo={this.toggleTodo} />
       </div>
     );
   }

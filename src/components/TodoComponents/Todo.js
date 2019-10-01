@@ -5,8 +5,18 @@ class Todo extends Component {
     super(props);
   }
   render() {
-    const { todoTask } = this.props;
-    return <div>{todoTask}</div>;
+    const { toggleTodo } = this.props;
+    let { todoTask, completed } = this.props;
+    completed =
+      completed !== undefined && completed === false
+        ? "not completed"
+        : "completed";
+    return (
+      <div>
+        <h5>{todoTask}</h5>
+        <button onClick={toggleTodo}>{completed}</button>
+      </div>
+    );
   }
 }
 
